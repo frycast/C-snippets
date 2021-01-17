@@ -389,3 +389,30 @@ int main() {
    printf("uni.myInt = %c \n", uni.myInt); // myInt overwritten!
    return 0;
 }
+
+// %% Writing, appending and reading files
+#include <stdio.h>
+int main() {
+   FILE * fpointer = fopen("employees.txt","w"); // 'r' read 'w' write 'a' append 
+   fprintf(fpointer, "Jim, Salesman\nPam, Receptionist\nOscar, Accounting");
+   fclose(fpointer);
+
+   FILE * fpointer2 = fopen("employees.txt","a");
+   fprintf(fpointer2, "\nKelly, Accounting");
+   fclose(fpointer2);
+
+   FILE * fpointer3 = fopen("employees.txt","r");
+   char line[255];
+
+   for ( int i = 0; i < 4; i++ ) {
+      fgets(line, 255, fpointer3);
+      printf(line);
+   }
+   fclose(fpointer3);
+
+   if (remove("employees.txt") == 0) 
+      printf("\nDeleted successfully"); 
+   else
+      printf("\nUnable to delete the file"); 
+   return 0;
+}
